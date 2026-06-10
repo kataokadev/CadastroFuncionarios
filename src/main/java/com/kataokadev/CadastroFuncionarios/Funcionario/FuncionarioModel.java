@@ -20,13 +20,13 @@ public class FuncionarioModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(nullable = false)
     private String nome;
 
     @Column
     private String cargo;
 
-    @Column(unique = true)
+    @Column(nullable = false, unique = true)
     private String email;
 
     // @ManyToOne um funcionario tem um unico projeto
