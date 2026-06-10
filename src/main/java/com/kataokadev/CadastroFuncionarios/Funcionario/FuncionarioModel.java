@@ -1,6 +1,9 @@
-package com.kataokadev.CadastroFuncionarios;
+package com.kataokadev.CadastroFuncionarios.Funcionario;
 
+import com.kataokadev.CadastroFuncionarios.Projeto.ProjetoModel;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "tb_cadastro")
@@ -19,6 +22,12 @@ public class FuncionarioModel {
 
     @Column(unique = true)
     private String email;
+
+    // @ManyToOne um funcionario tem um unico projeto
+    @Column
+    @ManyToOne
+    @JoinColumn(name = "projeto_id") // Foreign key
+    private ProjetoModel projeto;
 
     public FuncionarioModel() {
     }

@@ -1,4 +1,4 @@
-package com.kataokadev.CadastroFuncionarios;
+package com.kataokadev.CadastroFuncionarios.Funcionario;
 
 import org.springframework.web.bind.annotation.*;
 
