@@ -2,9 +2,13 @@ package com.kataokadev.CadastroFuncionarios.Projeto;
 
 import com.kataokadev.CadastroFuncionarios.Funcionario.FuncionarioModel;
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.List;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 @Entity
 @Table(name = "tb_projetos")
 public class ProjetoModel {
@@ -25,35 +29,4 @@ public class ProjetoModel {
     @OneToMany(mappedBy = "projeto")
     private List<FuncionarioModel> funcionario;
 
-    public ProjetoModel() {
-    }
-
-    public ProjetoModel(String nome, String prioridade) {
-        this.nome = nome;
-        this.prioridade = prioridade;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getPrioridade() {
-        return prioridade;
-    }
-
-    public void setPrioridade(String prioridade) {
-        prioridade = prioridade;
-    }
 }
