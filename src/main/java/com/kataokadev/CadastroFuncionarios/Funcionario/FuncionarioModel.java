@@ -30,7 +30,6 @@ public class FuncionarioModel {
     private String email;
 
     // @ManyToOne um funcionario tem um unico projeto
-    @Column
     @ManyToOne
     @JoinColumn(name = "projeto_id") // Foreign key
     private ProjetoModel projeto;

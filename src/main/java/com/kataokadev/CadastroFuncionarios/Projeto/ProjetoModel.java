@@ -25,7 +25,6 @@ public class ProjetoModel {
     private String prioridade;
 
     // @OneToMany Um Projeto pode ter varios funcionarios
-    @Column
     @OneToMany(mappedBy = "projeto")
     private List<FuncionarioModel> funcionario;
 
