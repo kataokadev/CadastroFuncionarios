@@ -13,13 +13,13 @@ public class FuncionarioController {
     }
 
     // Mostrar todos os Funcionarios (READ)
-    @GetMapping("/todos")
+    @GetMapping("/listar")
     public String todosFuncionarios() {
         return "Funcionarios todos";
     }
 
     // Procurar Funcionario por id (CREATE)
-    @GetMapping("todosID")
+    @GetMapping("listarID")
     public String todosFuncionariosID() {
         return "Funcionarios ID";
     }

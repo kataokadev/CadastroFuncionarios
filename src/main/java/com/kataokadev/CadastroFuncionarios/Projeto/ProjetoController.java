@@ -7,8 +7,13 @@ import org.springframework.web.bind.annotation.*;
 public class ProjetoController {
 
     @GetMapping("/listar")
-    public String listarProjeto(){
+    public String listarProjetos(){
         return "Projetos listados com sucesso";
+    }
+
+    @GetMapping("/listarID")
+    public String listarProjeto(){
+        return "Projeto listado com sucesso";
     }
 
     @PostMapping("/criar")
@@ -16,12 +21,12 @@ public class ProjetoController {
         return "Projeto criado com sucesso";
     }
 
-    @PutMapping("/alterar")
+    @PutMapping("/alterarID")
     public String alterarProjeto(){
         return "Projeto alterado com sucesso";
     }
 
-    @DeleteMapping("/deletar")
+    @DeleteMapping("/deletarID")
     public String deletarProjeto(){
         return "Projeto deletado com sucesso";
     }
