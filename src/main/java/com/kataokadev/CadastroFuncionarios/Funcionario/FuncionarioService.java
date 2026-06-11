@@ -34,4 +34,13 @@ public class FuncionarioService {
     public void deletarFuncionarioPorId(Long id) {
         funcionarioRepository.deleteById(id);
     }
+
+    // Atualizar Funcionario
+    public FuncionarioModel atualizarFuncionarioPorId(Long id, FuncionarioModel funcionarioAtualizado) {
+        if(funcionarioRepository.existsById(id)){
+            funcionarioAtualizado.setId(id);
+            return funcionarioRepository.save(funcionarioAtualizado);
+        }
+        return null;
+    }
 }
