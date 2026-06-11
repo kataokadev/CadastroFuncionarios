@@ -29,6 +29,9 @@ public class FuncionarioModel {
     @Column(nullable = false, unique = true)
     private String email;
 
+    @Column(unique = true)
+    private String cpf;
+
     // @ManyToOne um funcionario tem um unico projeto
     @ManyToOne
     @JoinColumn(name = "projeto_id") // Foreign key
