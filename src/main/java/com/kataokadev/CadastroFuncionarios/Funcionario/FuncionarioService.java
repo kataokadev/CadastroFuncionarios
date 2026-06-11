@@ -29,4 +29,9 @@ public class FuncionarioService {
     public FuncionarioModel criarFuncionario(FuncionarioModel funcionario) {
         return funcionarioRepository.save(funcionario);
     }
+
+    // Deletar funcionario
+    public void deletarFuncionarioPorId(Long id) {
+        funcionarioRepository.deleteById(id);
+    }
 }
