@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 public class FuncionarioService {
 
     private final FuncionarioRepository funcionarioRepository;
-    private FuncionarioMapper funcionarioMapper;
+    private final FuncionarioMapper funcionarioMapper;
 
     public FuncionarioService(FuncionarioRepository funcionarioRepository, FuncionarioMapper funcionarioMapper) {
         this.funcionarioRepository = funcionarioRepository;
