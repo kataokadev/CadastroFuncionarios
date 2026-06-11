@@ -15,7 +15,7 @@ public class FuncionarioController {
     }
 
     // Adicionar Funcionario (CREATE)
-    @PostMapping("criar")
+    @PostMapping("/criar")
     public String criarFuncionario() {
         return "Funcionario criado com sucesso!";
     }
@@ -27,19 +27,19 @@ public class FuncionarioController {
     }
 
     // Procurar Funcionario por id (CREATE)
-    @GetMapping("listarID")
-    public String todosFuncionariosID() {
-        return "Funcionarios ID";
+    @GetMapping("/listar/{id}")
+    public FuncionarioModel listarFuncionarioPorId(@PathVariable("id") Long id) {
+        return funcionarioService.listarFuncionarioPorId(id);
     }
 
     // Alterar dados de Funcionario (UPDATE)
-    @PutMapping("alterarID")
+    @PutMapping("/alterarID")
     public String alterarFuncionarioID() {
         return "Funcionario alterado com sucesso!";
     }
 
     // Deletar Funcionario (DELETE)
-    @DeleteMapping("deletarID")
+    @DeleteMapping("/deletarID")
     public String deletarFuncionarioID() {
         return "Funcionario deletado com sucesso!";
     }
