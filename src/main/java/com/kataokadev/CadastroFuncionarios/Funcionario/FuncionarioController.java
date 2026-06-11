@@ -21,19 +21,19 @@ public class FuncionarioController {
     }
     // Mostrar todos os Funcionarios (READ)
     @GetMapping("/listar")
-    public List<FuncionarioModel> listarFuncionarios() {
+    public List<FuncionarioDTO> listarFuncionarios() {
         return funcionarioService.listarFuncionarios();
     }
 
     // Procurar Funcionario por id (CREATE)
     @GetMapping("/listar/{id}")
-    public FuncionarioModel listarFuncionarioPorId(@PathVariable("id") Long id) {
+    public FuncionarioDTO listarFuncionarioPorId(@PathVariable("id") Long id) {
         return funcionarioService.listarFuncionarioPorId(id);
     }
 
     // Alterar dados de Funcionario (UPDATE)
     @PutMapping("/alterar/{id}")
-    public FuncionarioModel alterarFuncionarioPorId(@RequestBody FuncionarioModel funcionario, @PathVariable("id") Long id) {
+    public FuncionarioDTO alterarFuncionarioPorId(@RequestBody FuncionarioDTO funcionario, @PathVariable("id") Long id) {
         return funcionarioService.atualizarFuncionarioPorId(id, funcionario);
     }
 
