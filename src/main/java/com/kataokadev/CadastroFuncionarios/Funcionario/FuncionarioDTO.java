@@ -6,35 +6,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
-@Entity
-@Table(name = "tb_cadastro")
-public class FuncionarioModel {
+public class FuncionarioDTO {
 
-    @Id
-    @Column
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false)
     private String nome;
-
-    @Column
     private String cargo;
-
-    @Column(nullable = false, unique = true)
     private String email;
-
-    @Column(unique = true)
     private String cpf;
-
-    // @ManyToOne um funcionario tem um unico projeto
-    @ManyToOne
-    @JoinColumn(name = "projeto_id") // Foreign key
     private ProjetoModel projeto;
 
 }

@@ -4,30 +4,38 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class FuncionarioService {
 
     private final FuncionarioRepository funcionarioRepository;
+    private FuncionarioMapper funcionarioMapper;
 
-    public FuncionarioService(FuncionarioRepository funcionarioRepository) {
+    public FuncionarioService(FuncionarioRepository funcionarioRepository, FuncionarioMapper funcionarioMapper) {
         this.funcionarioRepository = funcionarioRepository;
+        this.funcionarioMapper = funcionarioMapper;
     }
 
     // Listar todos os Funcionarios
-    public List<FuncionarioModel> listarFuncionarios() {
-        return funcionarioRepository.findAll();
+    public List<FuncionarioDTO> listarFuncionarios() {
+        List<FuncionarioModel> funcionarios = funcionarioRepository.findAll();
+        return funcionarios.stream()
+                .map(funcionarioMapper::map)
+                .collect(Collectors.toList());
     }
 
     // Listar Funcionarios por Id
-    public FuncionarioModel listarFuncionarioPorId(Long id) {
+    public FuncionarioDTO listarFuncionarioPorId(Long id) {
        Optional<FuncionarioModel> funcionarioPorId= funcionarioRepository.findById(id);
-       return  funcionarioPorId.orElse(null);
+       return  funcionarioPorId.map(funcionarioMapper::map).orElse(null);
     }
 
     // Criar um funcionario
-    public FuncionarioModel criarFuncionario(FuncionarioModel funcionario) {
-        return funcionarioRepository.save(funcionario);
+    public FuncionarioDTO criarFuncionario(FuncionarioDTO funcionarioDTO) {
+        FuncionarioModel funcionario = funcionarioMapper.map(funcionarioDTO);
+        funcionarioRepository.save(funcionario);
+        return funcionarioMapper.map(funcionario);
     }
 
     // Deletar funcionario
@@ -36,10 +44,13 @@ public class FuncionarioService {
     }
 
     // Atualizar Funcionario
-    public FuncionarioModel atualizarFuncionarioPorId(Long id, FuncionarioModel funcionarioAtualizado) {
-        if(funcionarioRepository.existsById(id)){
+    public FuncionarioDTO atualizarFuncionarioPorId(Long id, FuncionarioDTO funcionarioDTO) {
+        Optional<FuncionarioModel> funcionarioModel = funcionarioRepository.findById(id);
+        if(funcionarioModel.isPresent()) {
+            FuncionarioModel funcionarioAtualizado = funcionarioMapper.map(funcionarioDTO);
             funcionarioAtualizado.setId(id);
-            return funcionarioRepository.save(funcionarioAtualizado);
+            FuncionarioModel funcionarioSalvo = funcionarioRepository.save(funcionarioAtualizado);
+            return funcionarioMapper.map(funcionarioSalvo);
         }
         return null;
     }
