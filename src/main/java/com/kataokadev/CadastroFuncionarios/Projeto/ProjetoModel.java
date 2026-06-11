@@ -1,5 +1,6 @@
 package com.kataokadev.CadastroFuncionarios.Projeto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kataokadev.CadastroFuncionarios.Funcionario.FuncionarioModel;
 import jakarta.persistence.*;
 import lombok.*;
@@ -26,6 +27,7 @@ public class ProjetoModel {
 
     // @OneToMany Um Projeto pode ter varios funcionarios
     @OneToMany(mappedBy = "projeto")
+    @JsonIgnore
     private List<FuncionarioModel> funcionario;
 
 }
