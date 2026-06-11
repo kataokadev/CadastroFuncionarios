@@ -1,5 +1,7 @@
 package com.kataokadev.CadastroFuncionarios.Funcionario;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,30 +18,53 @@ public class FuncionarioController {
 
     // Adicionar Funcionario (CREATE)
     @PostMapping("/criar")
-    public FuncionarioDTO criarFuncionario(@RequestBody FuncionarioDTO funcionario) {
-        return funcionarioService.criarFuncionario(funcionario);
+    public ResponseEntity<String> criarFuncionario(@RequestBody FuncionarioDTO funcionario) {
+        FuncionarioDTO novoFuncionario = funcionarioService.criarFuncionario(funcionario);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Usuario criado com sucesso! ID: " + novoFuncionario.getId());
     }
     // Mostrar todos os Funcionarios (READ)
     @GetMapping("/listar")
-    public List<FuncionarioDTO> listarFuncionarios() {
-        return funcionarioService.listarFuncionarios();
+    public ResponseEntity<List<FuncionarioDTO>> listarFuncionarios() {
+        List<FuncionarioDTO> funcionarios = funcionarioService.listarFuncionarios();
+        return ResponseEntity.ok(funcionarios);
     }
 
     // Procurar Funcionario por id (CREATE)
     @GetMapping("/listar/{id}")
-    public FuncionarioDTO listarFuncionarioPorId(@PathVariable("id") Long id) {
-        return funcionarioService.listarFuncionarioPorId(id);
+    public ResponseEntity<?> listarFuncionarioPorId(@PathVariable("id") Long id) {
+        FuncionarioDTO funcionario = funcionarioService.listarFuncionarioPorId(id);
+        if(funcionario != null) {
+            return ResponseEntity.ok(funcionario);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("ID: " + id + " não corresponde a nenhum funcionario");
+        }
+
+
     }
 
     // Alterar dados de Funcionario (UPDATE)
     @PutMapping("/alterar/{id}")
-    public FuncionarioDTO alterarFuncionarioPorId(@RequestBody FuncionarioDTO funcionario, @PathVariable("id") Long id) {
-        return funcionarioService.atualizarFuncionarioPorId(id, funcionario);
+    public ResponseEntity<?> alterarFuncionarioPorId(@RequestBody FuncionarioDTO funcionario, @PathVariable("id") Long id) {
+        FuncionarioDTO funcionarioDTO = funcionarioService.atualizarFuncionarioPorId(id, funcionario);
+
+        if(funcionarioDTO != null) {
+            return ResponseEntity.ok(funcionarioDTO);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("ID: " +  id + " não corresponde a nenhum funcionario");
+        }
     }
 
     // Deletar Funcionario (DELETE)
     @DeleteMapping("/deletar/{id}")
-    public void deletarFuncionarioPorId(@PathVariable("id") Long id) {
-        funcionarioService.deletarFuncionarioPorId(id);
+    public ResponseEntity<String> deletarFuncionarioPorId(@PathVariable("id") Long id) {
+
+        if (funcionarioService.listarFuncionarioPorId(id) != null) {
+            funcionarioService.deletarFuncionarioPorId(id);
+            return ResponseEntity.ok("Funcionario com ID: " + id + ", deletado com sucesso!");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Funcionario com esse ID não foi encontrado.");
+        }
+
+
     }
 }
