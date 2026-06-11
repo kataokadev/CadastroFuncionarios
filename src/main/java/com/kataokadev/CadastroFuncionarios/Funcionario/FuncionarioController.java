@@ -2,9 +2,17 @@ package com.kataokadev.CadastroFuncionarios.Funcionario;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("funcionarios")
 public class FuncionarioController {
+
+    private FuncionarioService funcionarioService;
+
+    public FuncionarioController(FuncionarioService funcionarioService) {
+        this.funcionarioService = funcionarioService;
+    }
 
     // Adicionar Funcionario (CREATE)
     @PostMapping("criar")
@@ -14,8 +22,8 @@ public class FuncionarioController {
 
     // Mostrar todos os Funcionarios (READ)
     @GetMapping("/listar")
-    public String todosFuncionarios() {
-        return "Funcionarios todos";
+    public List<FuncionarioModel> listarFuncionarios() {
+        return funcionarioService.listarFuncionarios();
     }
 
     // Procurar Funcionario por id (CREATE)
