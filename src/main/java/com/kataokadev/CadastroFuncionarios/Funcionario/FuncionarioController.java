@@ -8,7 +8,7 @@ import java.util.List;
 @RequestMapping("funcionarios")
 public class FuncionarioController {
 
-    private FuncionarioService funcionarioService;
+    private final FuncionarioService funcionarioService;
 
     public FuncionarioController(FuncionarioService funcionarioService) {
         this.funcionarioService = funcionarioService;
@@ -16,10 +16,9 @@ public class FuncionarioController {
 
     // Adicionar Funcionario (CREATE)
     @PostMapping("/criar")
-    public String criarFuncionario() {
-        return "Funcionario criado com sucesso!";
+    public FuncionarioModel criarFuncionario(@RequestBody FuncionarioModel funcionario) {
+        return funcionarioService.criarFuncionario(funcionario);
     }
-
     // Mostrar todos os Funcionarios (READ)
     @GetMapping("/listar")
     public List<FuncionarioModel> listarFuncionarios() {

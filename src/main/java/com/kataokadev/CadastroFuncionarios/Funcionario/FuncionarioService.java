@@ -1,11 +1,14 @@
 package com.kataokadev.CadastroFuncionarios.Funcionario;
 
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class FuncionarioService {
 
-    private FuncionarioRepository funcionarioRepository;
+    private final FuncionarioRepository funcionarioRepository;
 
     public FuncionarioService(FuncionarioRepository funcionarioRepository) {
         this.funcionarioRepository = funcionarioRepository;
@@ -20,5 +23,10 @@ public class FuncionarioService {
     public FuncionarioModel listarFuncionarioPorId(Long id) {
        Optional<FuncionarioModel> funcionarioPorId= funcionarioRepository.findById(id);
        return  funcionarioPorId.orElse(null);
+    }
+
+    // Criar um funcionario
+    public FuncionarioModel criarFuncionario(FuncionarioModel funcionario) {
+        return funcionarioRepository.save(funcionario);
     }
 }
