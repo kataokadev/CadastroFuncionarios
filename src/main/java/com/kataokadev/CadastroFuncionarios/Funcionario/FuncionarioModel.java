@@ -2,19 +2,18 @@ package com.kataokadev.CadastroFuncionarios.Funcionario;
 
 import com.kataokadev.CadastroFuncionarios.Projeto.ProjetoModel;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "tb_cadastro")
-@ToString
+@ToString(exclude = "projeto")
 public class FuncionarioModel {
 
     @Id

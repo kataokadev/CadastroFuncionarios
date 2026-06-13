@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Funcionários</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: 'Segoe UI', Arial, sans-serif;
+        background-color: #f5f5f5;
+        color: #1a1a1a;
+        padding: 2rem;
+    }
+
+    h1 {
+        font-size: 22px;
+        font-weight: 500;
+        margin-bottom: 1.5rem;
+        color: #1a1a1a;
+    }
+
+    .table-wrapper {
+        overflow-x: auto;
+        border: 1px solid #e0e0e0;
+        border-radius: 10px;
+        background: #ffffff;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+    }
+
+    thead {
+        background-color: #f8f8f8;
+    }
+
+    thead th {
+        padding: 12px 16px;
+        text-align: left;
+        font-weight: 500;
+        font-size: 13px;
+        color: #666666;
+        white-space: nowrap;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    tbody tr {
+        border-bottom: 1px solid #f0f0f0;
+        transition: background 0.15s;
+    }
+
+    tbody tr:last-child {
+        border-bottom: none;
+    }
+
+    tbody tr:hover {
+        background-color: #f8f8f8;
+    }
+
+    tbody td {
+        padding: 12px 16px;
+        vertical-align: middle;
+    }
+
+    tbody td:first-child {
+        color: #888888;
+        font-size: 13px;
+    }
+
+    .badge-projeto {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        background-color: #e8f0fe;
+        color: #1a5faa;
+        font-size: 12px;
+        padding: 3px 10px;
+        border-radius: 999px;
+    }
+
+    .badge-projeto .prioridade {
+        font-size: 11px;
+        opacity: 0.75;
+    }
+
+    .badge-sem {
+        display: inline-flex;
+        align-items: center;
+        background-color: #f0f0f0;
+        color: #888888;
+        font-size: 12px;
+        padding: 3px 10px;
+        border-radius: 999px;
+        border: 1px solid #e0e0e0;
+    }
+
+    .btn-deletar {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 13px;
+        color: #c0392b;
+        text-decoration: none;
+        padding: 5px 10px;
+        border-radius: 6px;
+        border: 1px solid #f5c6c2;
+        transition: background 0.15s;
+    }
+
+    .btn-deletar:hover {
+        background-color: #fdf0ee;
+    }
+</style>
+
+<body>
+<h1>Lista de Funcionários</h1>
+<div class="table-wrapper">
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Cargo</th>
+            <th>Email</th>
+            <th>Projeto</th>
+            <th>Opções</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="funcionario : ${funcionarios}">
+            <td th:text="${funcionario.id}"></td>
+            <td th:text="${funcionario.nome}"></td>
+            <td th:text="${funcionario.cpf}"></td>
+            <td th:text="${funcionario.cargo}"></td>
+            <td th:text="${funcionario.email}"></td>
+
+            <td>
+                <span class="badge-projeto"
+                      th:if="${funcionario.projeto != null}">
+                    <span th:text="${funcionario.projeto.nome}"></span>
+                    <span class="prioridade">
+                        (
+                        <span th:text="${funcionario.projeto.prioridade}"></span>
+                        )
+                    </span>
+                </span>
+
+                <span class="badge-sem"
+                      th:if="${funcionario.projeto == null}">
+                    Sem projetos
+                </span>
+            </td>
+
+            <td>
+                <a class="btn-deletar"
+                   th:href="@{/funcionarios/ui/deletar/{id}(id=${funcionario.id})}">
+                    Deletar
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
